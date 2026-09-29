@@ -151,41 +151,43 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ],
               ),
-              const SizedBox(width: 10),
-              // Student Avatar with Online Indicator
-              InkWell(
-                onTap: onProfileTap,
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.primary, width: 2),
-                        color: AppColors.primaryLight,
-                      ),
-                      child: const ClipOval(
-                        child: Icon(Icons.person, color: AppColors.primary, size: 26),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        width: 11,
-                        height: 11,
+              // Only show profile avatar in app bar on NON-dashboard screens
+              if (!isDashboard) ...[
+                const SizedBox(width: 10),
+                InkWell(
+                  onTap: onProfileTap,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
-                          color: AppColors.success,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
+                          border: Border.all(color: AppColors.primary, width: 2),
+                          color: AppColors.primaryLight,
+                        ),
+                        child: const ClipOval(
+                          child: Icon(Icons.person, color: AppColors.primary, size: 26),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 11,
+                          height: 11,
+                          decoration: BoxDecoration(
+                            color: AppColors.success,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ],
           ],
         ),

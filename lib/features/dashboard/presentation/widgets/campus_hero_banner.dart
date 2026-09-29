@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_campus/core/constants/app_assets.dart';
 import 'package:my_campus/core/constants/app_typography.dart';
 
 class CampusHeroBanner extends StatelessWidget {
@@ -14,22 +15,13 @@ class CampusHeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: 145,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF8ED2EB), // Sky blue
-            Color(0xFFBCE3F2),
-            Color(0xFFD4EBD6), // Campus lawn tint
-          ],
-        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -38,14 +30,15 @@ class CampusHeroBanner extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Stack(
+          fit: StackFit.expand,
           children: [
-            // Architectural campus panorama vector background
-            CustomPaint(
-              size: const Size(double.infinity, 140),
-              painter: _CampusArchitecturePainter(),
+            // Campus illustration image from assets
+            Image.asset(
+              AppAssets.campusIllustration,
+              fit: BoxFit.cover,
             ),
 
-            // Top gradient overlay for contrast
+            // Subtle dark gradient overlay at bottom for tag readability
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -54,7 +47,7 @@ class CampusHeroBanner extends StatelessWidget {
                   colors: [
                     Colors.black.withValues(alpha: 0.05),
                     Colors.transparent,
-                    Colors.black.withValues(alpha: 0.35),
+                    Colors.black.withValues(alpha: 0.55),
                   ],
                 ),
               ),
@@ -70,9 +63,9 @@ class CampusHeroBanner extends StatelessWidget {
                 children: [
                   // University & Spring tag
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.4),
+                      color: Colors.black.withValues(alpha: 0.45),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -87,9 +80,9 @@ class CampusHeroBanner extends StatelessWidget {
 
                   // Weather Widget
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.4),
+                      color: Colors.black.withValues(alpha: 0.45),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
@@ -115,69 +108,4 @@ class CampusHeroBanner extends StatelessWidget {
       ),
     );
   }
-}
-
-class _CampusArchitecturePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Trees and landscaping
-    final hillPaint = Paint()..color = const Color(0xFF6E9F6E);
-    final hillPath = Path()
-      ..moveTo(0, size.height * 0.75)
-      ..quadraticBezierTo(size.width * 0.25, size.height * 0.65, size.width * 0.5, size.height * 0.72)
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.78, size.width, size.height * 0.7)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-    canvas.drawPath(hillPath, hillPaint);
-
-    // Brick buildings left
-    final buildingPaint = Paint()..color = const Color(0xFFB86754);
-    canvas.drawRect(Rect.fromLTWH(size.width * 0.08, size.height * 0.35, size.width * 0.26, size.height * 0.45), buildingPaint);
-
-    // Left building roof
-    final roofPaint = Paint()..color = const Color(0xFF8B4232);
-    final roofPathLeft = Path()
-      ..moveTo(size.width * 0.06, size.height * 0.35)
-      ..lineTo(size.width * 0.21, size.height * 0.22)
-      ..lineTo(size.width * 0.36, size.height * 0.35)
-      ..close();
-    canvas.drawPath(roofPathLeft, roofPaint);
-
-    // Right building
-    canvas.drawRect(Rect.fromLTWH(size.width * 0.66, size.height * 0.35, size.width * 0.26, size.height * 0.45), buildingPaint);
-    final roofPathRight = Path()
-      ..moveTo(size.width * 0.64, size.height * 0.35)
-      ..lineTo(size.width * 0.79, size.height * 0.22)
-      ..lineTo(size.width * 0.94, size.height * 0.35)
-      ..close();
-    canvas.drawPath(roofPathRight, roofPaint);
-
-    // Center Clock Tower
-    final towerPaint = Paint()..color = const Color(0xFFC77864);
-    final towerLeft = size.width * 0.45;
-    final towerWidth = size.width * 0.10;
-    canvas.drawRect(Rect.fromLTWH(towerLeft, size.height * 0.25, towerWidth, size.height * 0.55), towerPaint);
-
-    // Clock tower spire
-    final spirePaint = Paint()..color = const Color(0xFF4C7063);
-    final spirePath = Path()
-      ..moveTo(towerLeft - 2, size.height * 0.25)
-      ..lineTo(towerLeft + (towerWidth / 2), size.height * 0.10)
-      ..lineTo(towerLeft + towerWidth + 2, size.height * 0.25)
-      ..close();
-    canvas.drawPath(spirePath, spirePaint);
-
-    // Clock Face circle
-    final clockPaint = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(towerLeft + (towerWidth / 2), size.height * 0.33), 6, clockPaint);
-    final clockRim = Paint()
-      ..color = const Color(0xFF5A3026)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2;
-    canvas.drawCircle(Offset(towerLeft + (towerWidth / 2), size.height * 0.33), 6, clockRim);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
