@@ -1,0 +1,82 @@
+{
+  "studentName": "Student",
+  "studentStatus": "• Omi",
+  "semester": "Semester 6",
+  "weather": "Sunny 28°C",
+  "notificationCount": 3,
+  "nextClass": {
+    "courseTitle": "Data Structures",
+    "room": "Lab 302",
+    "instructor": "Prof. Alan Vance",
+    "startTime": "Starts 10:30 AM",
+    "countdown": "In 15m"
+  },
+  "quickActions": [
+    {
+      "id": "notices",
+      "label": "Notices",
+      "iconCode": "article",
+      "badge": null,
+      "route": "/notices"
+    },
+    {
+      "id": "classes",
+      "label": "Classes",
+      "iconCode": "laptop",
+      "badge": null,
+      "route": "/routine"
+    },
+    {
+      "id": "attendance",
+      "label": "Attendance",
+      "iconCode": "calendar_check",
+      "badge": "94%",
+      "route": "/attendance"
+    },
+    {
+      "id": "results",
+      "label": "Results",
+      "iconCode": "bar_chart",
+      "badge": null,
+      "route": "/academics"
+    },
+    {
+      "id": "assignments",
+      "label": "Assignments",
+      "iconCode": "assignment_turned_in",
+      "badge": null,
+      "route": "/assignments"
+    },
+    {
+      "id": "events",
+      "label": "Events",
+      "iconCode": "event",
+      "badge": null,
+      "route": "/events"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "iconCode": "person",
+      "badge": null,
+      "route": "/profile"
+    },
+    {
+      "id": "more",
+      "label": "More",
+      "iconCode": "more_horiz",
+      "badge": null,
+      "route": "/services"
+    }
+  ],
+  "featuredEvent": {
+    "id": "hackathon_2026",
+    "categoryTag": "FEATURED CAMPUS EVENT",
+    "deadlineBadge": "Registration Closes in 2 Days",
+    "title": "Annual AI & Robotics Hackathon 2026",
+    "description": "Join 500+ innovators • $10,000 in Prizes & Mentorship • Innovation Lab Hall",
+    "audience": "Open to all faculties",
+    "buttonLabel": "Register Free ->",
+    "isRegistered": false
+  }
+}

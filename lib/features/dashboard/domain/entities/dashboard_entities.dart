@@ -46,6 +46,7 @@ class FeaturedEventEntity extends Equatable {
   final String description;
   final String audience;
   final String buttonLabel;
+  final bool isRegistered;
 
   const FeaturedEventEntity({
     required this.id,
@@ -55,7 +56,30 @@ class FeaturedEventEntity extends Equatable {
     required this.description,
     required this.audience,
     required this.buttonLabel,
+    this.isRegistered = false,
   });
+
+  FeaturedEventEntity copyWith({
+    String? id,
+    String? categoryTag,
+    String? deadlineBadge,
+    String? title,
+    String? description,
+    String? audience,
+    String? buttonLabel,
+    bool? isRegistered,
+  }) {
+    return FeaturedEventEntity(
+      id: id ?? this.id,
+      categoryTag: categoryTag ?? this.categoryTag,
+      deadlineBadge: deadlineBadge ?? this.deadlineBadge,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      audience: audience ?? this.audience,
+      buttonLabel: buttonLabel ?? this.buttonLabel,
+      isRegistered: isRegistered ?? this.isRegistered,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -66,6 +90,7 @@ class FeaturedEventEntity extends Equatable {
         description,
         audience,
         buttonLabel,
+        isRegistered,
       ];
 }
 
@@ -89,6 +114,28 @@ class DashboardDataEntity extends Equatable {
     required this.quickActions,
     required this.featuredEvent,
   });
+
+  DashboardDataEntity copyWith({
+    String? studentName,
+    String? studentStatus,
+    String? semester,
+    String? weather,
+    int? notificationCount,
+    NextClassEntity? nextClass,
+    List<QuickActionItemEntity>? quickActions,
+    FeaturedEventEntity? featuredEvent,
+  }) {
+    return DashboardDataEntity(
+      studentName: studentName ?? this.studentName,
+      studentStatus: studentStatus ?? this.studentStatus,
+      semester: semester ?? this.semester,
+      weather: weather ?? this.weather,
+      notificationCount: notificationCount ?? this.notificationCount,
+      nextClass: nextClass ?? this.nextClass,
+      quickActions: quickActions ?? this.quickActions,
+      featuredEvent: featuredEvent ?? this.featuredEvent,
+    );
+  }
 
   @override
   List<Object?> get props => [

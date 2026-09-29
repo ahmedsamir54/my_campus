@@ -69,6 +69,7 @@ class FeaturedEventModel extends FeaturedEventEntity {
     required super.description,
     required super.audience,
     required super.buttonLabel,
+    super.isRegistered = false,
   });
 
   factory FeaturedEventModel.fromJson(Map<String, dynamic> json) {
@@ -80,6 +81,7 @@ class FeaturedEventModel extends FeaturedEventEntity {
       description: json['description'] as String,
       audience: json['audience'] as String,
       buttonLabel: json['buttonLabel'] as String,
+      isRegistered: (json['isRegistered'] as bool?) ?? false,
     );
   }
 
@@ -92,6 +94,7 @@ class FeaturedEventModel extends FeaturedEventEntity {
       'description': description,
       'audience': audience,
       'buttonLabel': buttonLabel,
+      'isRegistered': isRegistered,
     };
   }
 }
@@ -121,5 +124,18 @@ class DashboardDataModel extends DashboardDataEntity {
           .toList(),
       featuredEvent: FeaturedEventModel.fromJson(json['featuredEvent'] as Map<String, dynamic>),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'studentName': studentName,
+      'studentStatus': studentStatus,
+      'semester': semester,
+      'weather': weather,
+      'notificationCount': notificationCount,
+      'nextClass': (nextClass as NextClassModel).toJson(),
+      'quickActions': quickActions.map((a) => (a as QuickActionItemModel).toJson()).toList(),
+      'featuredEvent': (featuredEvent as FeaturedEventModel).toJson(),
+    };
   }
 }

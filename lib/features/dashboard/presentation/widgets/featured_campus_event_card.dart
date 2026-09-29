@@ -149,10 +149,16 @@ class FeaturedCampusEventCard extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                onPressed: onRegisterTap,
+                onPressed: event.isRegistered ? null : onRegisterTap,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
+                  backgroundColor: event.isRegistered
+                      ? const Color(0xFF1E3A2E)
+                      : AppColors.primary,
+                  foregroundColor: event.isRegistered
+                      ? const Color(0xFF6EE7B7)
+                      : Colors.white,
+                  disabledBackgroundColor: const Color(0xFF163226),
+                  disabledForegroundColor: const Color(0xFF6EE7B7),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -163,10 +169,14 @@ class FeaturedCampusEventCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    if (event.isRegistered) ...[
+                      const Icon(Icons.check_circle_rounded, size: 14, color: Color(0xFF6EE7B7)),
+                      const SizedBox(width: 5),
+                    ],
                     Text(
-                      event.buttonLabel,
+                      event.isRegistered ? 'Registered ✓' : event.buttonLabel,
                       style: AppTypography.labelBold.copyWith(
-                        color: Colors.white,
+                        color: event.isRegistered ? const Color(0xFF6EE7B7) : Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),

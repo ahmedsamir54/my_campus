@@ -194,9 +194,10 @@ class DashboardPage extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.pop(ctx);
+                  context.read<DashboardCubit>().registerEvent(event.id);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text('RSVP Confirmed! Digital pass added to Events tab.'),
+                      content: const Text('RSVP Confirmed! Saved to local storage.'),
                       backgroundColor: AppColors.success,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
