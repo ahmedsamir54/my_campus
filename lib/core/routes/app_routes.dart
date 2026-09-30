@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/attendance/presentation/cubit/attendance_cubit.dart';
 import '../../features/attendance/presentation/pages/attendance_page.dart';
+import '../../features/profile/presentation/cubit/profile_cubit.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../injection_container.dart';
 
 class AppRoutes {
@@ -25,6 +27,14 @@ class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => sl<AttendanceCubit>()..loadAttendance(),
             child: const AttendancePage(),
+          ),
+          settings: settings,
+        );
+      case profile:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<ProfileCubit>()..loadProfile(),
+            child: const ProfilePage(),
           ),
           settings: settings,
         );

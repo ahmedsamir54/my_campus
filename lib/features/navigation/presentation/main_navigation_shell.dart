@@ -9,6 +9,8 @@ import '../../dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../dashboard/presentation/pages/dashboard_page.dart';
 import '../../routine/presentation/cubit/routine_cubit.dart';
 import '../../routine/presentation/pages/routine_page.dart';
+import '../../profile/presentation/cubit/profile_cubit.dart';
+import '../../profile/presentation/pages/profile_page.dart';
 import 'package:my_campus/core/routes/app_routes.dart';
 
 class MainNavigationShell extends StatefulWidget {
@@ -73,10 +75,9 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
         icon: Icons.chat_bubble_rounded,
       ),
       // Tab 4: Profile
-      _buildTabPlaceholder(
-        title: 'Student Profile & Digital ID Pass',
-        subtitle: 'Sprint 2: Screen 4 (PVC ID, Barcode, NFC)',
-        icon: Icons.person_rounded,
+      BlocProvider(
+        create: (_) => sl<ProfileCubit>()..loadProfile(),
+        child: const ProfilePage(),
       ),
     ];
 

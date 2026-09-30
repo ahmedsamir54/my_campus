@@ -29,6 +29,15 @@ import 'features/attendance/domain/usecases/get_attendance_data_usecase.dart';
 import 'features/attendance/domain/usecases/simulate_absence_usecase.dart';
 import 'features/attendance/presentation/cubit/attendance_cubit.dart';
 
+// Profile feature
+import 'features/profile/data/datasources/profile_local_data_source.dart';
+import 'features/profile/data/datasources/profile_remote_data_source.dart';
+import 'features/profile/data/repositories/profile_repository_impl.dart';
+import 'features/profile/domain/repositories/profile_repository.dart';
+import 'features/profile/domain/usecases/get_student_profile_usecase.dart';
+import 'features/profile/domain/usecases/toggle_settings_usecases.dart';
+import 'features/profile/presentation/cubit/profile_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -116,5 +125,36 @@ Future<void> initDependencies() async {
       simulateAbsenceUseCase: sl(),
     ),
   );
+
+  //! Feature: Profile
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+    () => ProfileRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<ProfileLocalDataSource>(
+    () => ProfileLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+  sl.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => GetStudentProfileUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => ToggleBiometricsUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => ToggleNotificationsUseCase(repository: sl()),
+  );
+  sl.registerFactory(
+    () => ProfileCubit(
+      getStudentProfileUseCase: sl(),
+      toggleBiometricsUseCase: sl(),
+      toggleNotificationsUseCase: sl(),
+    ),
+  );
 }
+
 

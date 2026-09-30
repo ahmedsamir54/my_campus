@@ -1,0 +1,41 @@
+{
+  "profile": {
+    "id": "std_8841",
+    "name": "Ahmed Samir Abdelaziz",
+    "studentIdNumber": "CU-2023-8841",
+    "department": "Computer Science & AI",
+    "faculty": "Faculty of Computers & Artificial Intelligence",
+    "batch": "2023 - 2027",
+    "academicYear": "Year 3 (Junior)",
+    "semester": "Fall 2026",
+    "bloodGroup": "A+",
+    "validUntil": "July 2027",
+    "issuedDate": "September 2023",
+    "email": "ahmed.samir@campus.edu",
+    "phone": "+20 100 234 5678",
+    "emergencyContact": "+20 101 987 6543 (Father)",
+    "nationalId": "30109230104567",
+    "barcodeValue": "*CU8841026*",
+    "qrPayload": "mycampus://verify/student/CU-2023-8841?status=active&sig=a8f9c2",
+    "avatarUrl": "assets/images/avatar_student.png",
+    "status": "Active / Verified",
+    "cardType": "Digital Student Pass (PVC Smart Card)"
+  },
+  "academic": {
+    "cgpa": 3.82,
+    "maxCgpa": 4.0,
+    "earnedCredits": 96,
+    "totalCredits": 136,
+    "enrolledCourses": 6,
+    "semester": "Semester 6",
+    "academicStanding": "Dean's List • First Honors",
+    "libraryCleared": true,
+    "financialCleared": true
+  },
+  "settings": {
+    "biometricsEnabled": true,
+    "notificationsEnabled": true,
+    "darkMode": false,
+    "offlineIdAccess": true
+  }
+}
