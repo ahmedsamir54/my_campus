@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/attendance/presentation/cubit/attendance_cubit.dart';
 import '../../features/attendance/presentation/pages/attendance_page.dart';
+import '../../features/auth/presentation/cubit/auth_cubit.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/navigation/presentation/main_navigation_shell.dart';
 import '../../features/profile/presentation/cubit/profile_cubit.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../injection_container.dart';
@@ -22,6 +25,19 @@ class AppRoutes {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case login:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<AuthCubit>(),
+            child: const LoginPage(),
+          ),
+          settings: settings,
+        );
+      case mainShell:
+        return MaterialPageRoute(
+          builder: (_) => const MainNavigationShell(),
+          settings: settings,
+        );
       case attendance:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

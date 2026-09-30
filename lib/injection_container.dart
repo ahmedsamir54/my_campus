@@ -38,6 +38,15 @@ import 'features/profile/domain/usecases/get_student_profile_usecase.dart';
 import 'features/profile/domain/usecases/toggle_settings_usecases.dart';
 import 'features/profile/presentation/cubit/profile_cubit.dart';
 
+// Auth feature
+import 'features/auth/data/datasources/auth_local_data_source.dart';
+import 'features/auth/data/datasources/auth_remote_data_source.dart';
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/repositories/auth_repository.dart';
+import 'features/auth/domain/usecases/biometric_login_usecase.dart';
+import 'features/auth/domain/usecases/login_with_credentials_usecase.dart';
+import 'features/auth/presentation/cubit/auth_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -153,6 +162,33 @@ Future<void> initDependencies() async {
       getStudentProfileUseCase: sl(),
       toggleBiometricsUseCase: sl(),
       toggleNotificationsUseCase: sl(),
+    ),
+  );
+
+  //! Feature: Auth
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => LoginWithCredentialsUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => BiometricLoginUseCase(repository: sl()),
+  );
+  sl.registerFactory(
+    () => AuthCubit(
+      loginWithCredentialsUseCase: sl(),
+      biometricLoginUseCase: sl(),
+      authRepository: sl(),
     ),
   );
 }
