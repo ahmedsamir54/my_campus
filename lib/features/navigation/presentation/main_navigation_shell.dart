@@ -7,6 +7,8 @@ import 'package:my_campus/core/widgets/custom_bottom_nav.dart';
 import 'package:my_campus/injection_container.dart';
 import '../../dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../dashboard/presentation/pages/dashboard_page.dart';
+import '../../routine/presentation/cubit/routine_cubit.dart';
+import '../../routine/presentation/pages/routine_page.dart';
 
 class MainNavigationShell extends StatefulWidget {
   final int initialIndex;
@@ -49,10 +51,9 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
         ),
       ),
       // Tab 1: Classes (Routine)
-      _buildTabPlaceholder(
-        title: 'Class Routine & Schedule',
-        subtitle: 'Sprint 2: Screen 2 (Upcoming next)',
-        icon: Icons.calendar_month_rounded,
+      BlocProvider(
+        create: (_) => sl<RoutineCubit>()..loadWeeklyRoutine(),
+        child: const RoutinePage(),
       ),
       // Tab 2: Notices
       _buildTabPlaceholder(
