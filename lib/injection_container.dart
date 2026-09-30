@@ -20,6 +20,15 @@ import 'features/routine/domain/usecases/get_weekly_routine_usecase.dart';
 import 'features/routine/domain/usecases/select_routine_day_usecase.dart';
 import 'features/routine/presentation/cubit/routine_cubit.dart';
 
+// Attendance feature
+import 'features/attendance/data/datasources/attendance_local_data_source.dart';
+import 'features/attendance/data/datasources/attendance_remote_data_source.dart';
+import 'features/attendance/data/repositories/attendance_repository_impl.dart';
+import 'features/attendance/domain/repositories/attendance_repository.dart';
+import 'features/attendance/domain/usecases/get_attendance_data_usecase.dart';
+import 'features/attendance/domain/usecases/simulate_absence_usecase.dart';
+import 'features/attendance/presentation/cubit/attendance_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -81,4 +90,31 @@ Future<void> initDependencies() async {
       selectRoutineDayUseCase: sl(),
     ),
   );
+
+  //! Feature: Attendance
+  sl.registerLazySingleton<AttendanceRemoteDataSource>(
+    () => AttendanceRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<AttendanceLocalDataSource>(
+    () => AttendanceLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+  sl.registerLazySingleton<AttendanceRepository>(
+    () => AttendanceRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => GetAttendanceDataUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => SimulateAbsenceUseCase(repository: sl()),
+  );
+  sl.registerFactory(
+    () => AttendanceCubit(
+      getAttendanceDataUseCase: sl(),
+      simulateAbsenceUseCase: sl(),
+    ),
+  );
 }
+

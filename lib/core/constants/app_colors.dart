@@ -44,4 +44,12 @@ class AppColors {
   static const Color borderSubtle = Color(0xFFE2E8F0);
   static const Color borderDark = Color(0xFF1E293B);
   static const Color divider = Color(0xFFEEF2F6);
+
+  // Convenient Theme Aliases
+  static const Color textPrimary = textPrimaryLight;
+  static const Color textSecondary = textSecondaryLight;
+  static const Color textTertiary = textMutedLight;
+  static const Color surfaceLight = cardLight;
+  static const Color border = borderSubtle;
+  static const Color accentLight = mintAccent;
 }

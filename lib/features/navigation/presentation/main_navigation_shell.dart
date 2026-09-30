@@ -9,6 +9,7 @@ import '../../dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../dashboard/presentation/pages/dashboard_page.dart';
 import '../../routine/presentation/cubit/routine_cubit.dart';
 import '../../routine/presentation/pages/routine_page.dart';
+import 'package:my_campus/core/routes/app_routes.dart';
 
 class MainNavigationShell extends StatefulWidget {
   final int initialIndex;
@@ -46,7 +47,11 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
         child: DashboardPage(
           onSwitchTab: _onTabSelected,
           onNavigateRoute: (route) {
-            _showUnderConstructionSnackbar(route);
+            if (route == AppRoutes.attendance) {
+              Navigator.pushNamed(context, AppRoutes.attendance);
+            } else {
+              _showUnderConstructionSnackbar(route);
+            }
           },
         ),
       ),

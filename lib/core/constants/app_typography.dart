@@ -52,4 +52,6 @@ class AppTypography {
         fontWeight: FontWeight.w600,
         letterSpacing: 0.2,
       );
+
+  static TextStyle get caption => bodySmall;
 }
