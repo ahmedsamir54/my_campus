@@ -74,13 +74,17 @@ class AttendanceSimulatorButton extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Absence & Bunk Simulator',
-                          style: AppTypography.heading3.copyWith(
-                            fontSize: 15,
-                            color: isSimulating
-                                ? Colors.white
-                                : AppColors.textPrimary,
+                        Flexible(
+                          child: Text(
+                            'Absence & Bunk Simulator',
+                            style: AppTypography.heading3.copyWith(
+                              fontSize: 14.5,
+                              color: isSimulating
+                                  ? Colors.white
+                                  : AppColors.textPrimary,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(width: 6),
@@ -118,6 +122,8 @@ class AttendanceSimulatorButton extends StatelessWidget {
                             : AppColors.textSecondary,
                         fontSize: 12,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
