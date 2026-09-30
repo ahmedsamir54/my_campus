@@ -6,7 +6,9 @@ import 'core/theme/theme_cubit.dart';
 import 'injection_container.dart';
 
 class MyCampusApp extends StatelessWidget {
-  const MyCampusApp({super.key});
+  final String? initialRoute;
+
+  const MyCampusApp({super.key, this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class MyCampusApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: themeMode,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: AppRoutes.splash,
+            initialRoute: initialRoute ?? AppRoutes.onboarding,
           );
         },
       ),

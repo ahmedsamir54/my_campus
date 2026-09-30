@@ -56,6 +56,12 @@ import 'features/onboarding/domain/usecases/complete_onboarding_usecase.dart';
 import 'features/onboarding/domain/usecases/get_onboarding_items_usecase.dart';
 import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
 
+// Splash & Lifecycle Router feature
+import 'features/splash/data/datasources/splash_local_data_source.dart';
+import 'features/splash/data/repositories/splash_repository_impl.dart';
+import 'features/splash/domain/repositories/splash_repository.dart';
+import 'features/splash/domain/usecases/resolve_initial_route_usecase.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -222,6 +228,17 @@ Future<void> initDependencies() async {
       getOnboardingItemsUseCase: sl(),
       completeOnboardingUseCase: sl(),
     ),
+  );
+
+  //! Feature: Splash & Lifecycle Router
+  sl.registerLazySingleton<SplashLocalDataSource>(
+    () => SplashLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+  sl.registerLazySingleton<SplashRepository>(
+    () => SplashRepositoryImpl(localDataSource: sl()),
+  );
+  sl.registerLazySingleton(
+    () => ResolveInitialRouteUseCase(repository: sl()),
   );
 }
 
