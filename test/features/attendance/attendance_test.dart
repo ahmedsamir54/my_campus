@@ -49,8 +49,8 @@ void main() {
   setUp(() {
     sampleData = AttendanceDataModel.fromJson(const {
       'summary': {
-        'overallPercentage': 89.0,
-        'totalAttended': 89,
+        'overallPercentage': 94.0,
+        'totalAttended': 94,
         'totalConducted': 100,
         'minimumThreshold': 75.0,
         'isEligible': true,
@@ -110,7 +110,7 @@ void main() {
     final json = sampleData.toJson();
     final parsed = AttendanceDataModel.fromJson(json);
 
-    expect(parsed.summary.overallPercentage, 89.0);
+    expect(parsed.summary.overallPercentage, 94.0);
     expect(parsed.summary.isEligible, isTrue);
     expect(parsed.courses.length, 2);
     expect(parsed.courses[0].courseCode, 'CS201');
@@ -125,7 +125,7 @@ void main() {
     result.fold(
       (failure) => fail('Expected right result, got failure: $failure'),
       (data) {
-        expect(data.summary.overallPercentage, 89.0);
+        expect(data.summary.overallPercentage, 94.0);
         expect(data.courses.length, 2);
         expect(localDataSource.cachedData, isNotNull);
       },
