@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/widgets/status_badge.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
@@ -48,6 +49,11 @@ class ProfilePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+              );
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.login,
+                (route) => false,
               );
             },
             style: ElevatedButton.styleFrom(
