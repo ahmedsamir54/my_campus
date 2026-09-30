@@ -5,7 +5,6 @@ import '../../domain/entities/routine_entities.dart';
 import '../../domain/repositories/routine_repository.dart';
 import '../datasources/routine_local_data_source.dart';
 import '../datasources/routine_remote_data_source.dart';
-import '../models/routine_models.dart';
 
 class RoutineRepositoryImpl implements RoutineRepository {
   final RoutineRemoteDataSource remoteDataSource;
@@ -59,18 +58,34 @@ class RoutineRepositoryImpl implements RoutineRepository {
     }
   }
 
-  WeeklyRoutineEntity _applySelectedDay(WeeklyRoutineModel routine, String? targetDayName) {
-    final targetName = targetDayName ?? (routine.days.firstWhere((d) => d.isToday, orElse: () => routine.days.first).dayName);
+  WeeklyRoutineEntity _applySelectedDay(WeeklyRoutineEntity routine, String? targetDayName) {
+    String targetName;
+    if (targetDayName != null && targetDayName.isNotEmpty) {
+      targetName = targetDayName;
+    } else {
+      RoutineDayEntity? todayDay;
+      for (final d in routine.days) {
+        if (d.isToday) {
+          todayDay = d;
+          break;
+        }
+      }
+      targetName = (todayDay ?? (routine.days.isNotEmpty ? routine.days.first : null))?.dayName ?? 'Tue';
+    }
 
     final updatedDays = routine.days.map((day) {
       final isSelected = day.dayName == targetName;
       return day.copyWith(isSelected: isSelected);
     }).toList();
 
-    final selectedDay = updatedDays.firstWhere(
-      (d) => d.dayName == targetName,
-      orElse: () => updatedDays.first,
-    );
+    RoutineDayEntity? selectedDay;
+    for (final d in updatedDays) {
+      if (d.dayName == targetName) {
+        selectedDay = d;
+        break;
+      }
+    }
+    selectedDay ??= updatedDays.isNotEmpty ? updatedDays.first : routine.selectedDay;
 
     return routine.copyWith(
       days: updatedDays,

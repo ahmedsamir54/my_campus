@@ -88,7 +88,7 @@ class RoutineDayModel extends RoutineDayEntity {
     required super.lecturesCount,
     required super.totalHours,
     required super.progressPercentage,
-    required List<LectureModel> super.lectures,
+    required super.lectures,
   });
 
   factory RoutineDayModel.fromJson(Map<String, dynamic> json) {
@@ -126,8 +126,8 @@ class WeeklyRoutineModel extends WeeklyRoutineEntity {
   const WeeklyRoutineModel({
     required super.semester,
     required super.week,
-    required List<RoutineDayModel> super.days,
-    required RoutineDayModel super.selectedDay,
+    required super.days,
+    required super.selectedDay,
   });
 
   factory WeeklyRoutineModel.fromJson(Map<String, dynamic> json) {
@@ -135,22 +135,25 @@ class WeeklyRoutineModel extends WeeklyRoutineEntity {
         .map((item) => RoutineDayModel.fromJson(item as Map<String, dynamic>))
         .toList();
 
-    // Default selected day is today, or first day
-    final defaultSelected = daysList.firstWhere(
-      (d) => d.isToday,
-      orElse: () => daysList.isNotEmpty
-          ? daysList.first
-          : const RoutineDayModel(
-              dayName: 'Mon',
-              dayNumber: '28',
-              fullDate: '',
-              isToday: false,
-              lecturesCount: 0,
-              totalHours: '',
-              progressPercentage: '',
-              lectures: [],
-            ),
-    );
+    RoutineDayModel? defaultSelected;
+    for (final d in daysList) {
+      if (d.isToday) {
+        defaultSelected = d;
+        break;
+      }
+    }
+    defaultSelected ??= daysList.isNotEmpty
+        ? daysList.first
+        : const RoutineDayModel(
+            dayName: 'Mon',
+            dayNumber: '28',
+            fullDate: '',
+            isToday: false,
+            lecturesCount: 0,
+            totalHours: '',
+            progressPercentage: '',
+            lectures: [],
+          );
 
     return WeeklyRoutineModel(
       semester: json['semester'] as String? ?? 'Fall 2026',
