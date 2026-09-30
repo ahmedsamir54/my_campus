@@ -5,11 +5,15 @@ import '../../features/attendance/presentation/pages/attendance_page.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/navigation/presentation/main_navigation_shell.dart';
+import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/profile/presentation/cubit/profile_cubit.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/splash/presentation/pages/splash_page.dart';
 import '../../injection_container.dart';
 
 class AppRoutes {
+  static const String splash = '/';
   static const String onboarding = '/onboarding';
   static const String login = '/login';
   static const String mainShell = '/main';
@@ -25,6 +29,19 @@ class AppRoutes {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashPage(),
+          settings: settings,
+        );
+      case onboarding:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => sl<OnboardingCubit>()..loadOnboarding(),
+            child: const OnboardingPage(),
+          ),
+          settings: settings,
+        );
       case login:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

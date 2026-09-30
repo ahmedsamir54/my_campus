@@ -30,6 +30,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }) async {
     try {
       await sharedPreferences.setString(_authTokenKey, user.token);
+      await sharedPreferences.setString('auth_token', user.token);
       await sharedPreferences.setString(
           _authUserKey, json.encode(user.toJson()));
       await sharedPreferences.setBool(_rememberMeKey, rememberMe);
@@ -77,6 +78,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   Future<void> clearSession() async {
     try {
       await sharedPreferences.remove(_authTokenKey);
+      await sharedPreferences.remove('auth_token');
       await sharedPreferences.remove(_authUserKey);
     } catch (e) {
       throw CacheException(

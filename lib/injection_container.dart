@@ -47,6 +47,15 @@ import 'features/auth/domain/usecases/biometric_login_usecase.dart';
 import 'features/auth/domain/usecases/login_with_credentials_usecase.dart';
 import 'features/auth/presentation/cubit/auth_cubit.dart';
 
+// Onboarding feature
+import 'features/onboarding/data/datasources/onboarding_local_data_source.dart';
+import 'features/onboarding/data/repositories/onboarding_repository_impl.dart';
+import 'features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'features/onboarding/domain/usecases/check_onboarding_status_usecase.dart';
+import 'features/onboarding/domain/usecases/complete_onboarding_usecase.dart';
+import 'features/onboarding/domain/usecases/get_onboarding_items_usecase.dart';
+import 'features/onboarding/presentation/cubit/onboarding_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -189,6 +198,29 @@ Future<void> initDependencies() async {
       loginWithCredentialsUseCase: sl(),
       biometricLoginUseCase: sl(),
       authRepository: sl(),
+    ),
+  );
+
+  //! Feature: Onboarding
+  sl.registerLazySingleton<OnboardingLocalDataSource>(
+    () => OnboardingLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+  sl.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(localDataSource: sl()),
+  );
+  sl.registerLazySingleton(
+    () => CheckOnboardingStatusUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => CompleteOnboardingUseCase(repository: sl()),
+  );
+  sl.registerLazySingleton(
+    () => GetOnboardingItemsUseCase(repository: sl()),
+  );
+  sl.registerFactory(
+    () => OnboardingCubit(
+      getOnboardingItemsUseCase: sl(),
+      completeOnboardingUseCase: sl(),
     ),
   );
 }

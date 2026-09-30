@@ -21,7 +21,7 @@ class MyCampusApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: themeMode,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: AppRoutes.login,
+            initialRoute: AppRoutes.splash,
           );
         },
       ),
