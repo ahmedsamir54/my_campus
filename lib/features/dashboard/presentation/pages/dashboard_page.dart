@@ -23,8 +23,10 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: SafeArea(
         child: BlocBuilder<DashboardCubit, DashboardState>(
           builder: (context, state) {
@@ -153,9 +155,11 @@ class DashboardPage extends StatelessWidget {
   }
 
   void _showEventRegistrationSheet(BuildContext context, FeaturedEventEntity event) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? AppColors.cardDark : Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -170,18 +174,35 @@ class DashboardPage extends StatelessWidget {
               children: [
                 Text(
                   'Event Registration',
-                  style: AppTypography.heading3.copyWith(fontSize: 18),
+                  style: AppTypography.heading3.copyWith(
+                    fontSize: 18,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                  ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.close_rounded),
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
                   onPressed: () => Navigator.pop(ctx),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            Text(event.title, style: AppTypography.bodyLarge.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              event.title,
+              style: AppTypography.bodyLarge.copyWith(
+                fontWeight: FontWeight.w700,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+              ),
+            ),
             const SizedBox(height: 6),
-            Text(event.description, style: AppTypography.bodyMedium),
+            Text(
+              event.description,
+              style: AppTypography.bodyMedium.copyWith(
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
+            ),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,

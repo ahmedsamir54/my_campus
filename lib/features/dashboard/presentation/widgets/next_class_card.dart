@@ -15,6 +15,8 @@ class NextClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -23,12 +25,19 @@ class NextClassCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            color: const Color(0xFFEFFCF5),
+            color: isDark ? const Color(0xFF101B27) : const Color(0xFFEFFCF5),
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: const Color(0xFFBBF0D4),
+              color: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFBBF0D4),
               width: 1.2,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.03),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -52,14 +61,27 @@ class NextClassCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'NEXT CLASS',
-                      style: AppTypography.badgeText.copyWith(
-                        color: AppColors.primary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.8,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'NEXT CLASS',
+                          style: AppTypography.badgeText.copyWith(
+                            color: isDark ? const Color(0xFF34D399) : AppColors.primary,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: isDark ? const Color(0xFF34D399) : AppColors.primary,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 2),
                     Text(
@@ -67,7 +89,7 @@ class NextClassCard extends StatelessWidget {
                       style: AppTypography.heading3.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimaryLight,
+                        color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -75,7 +97,7 @@ class NextClassCard extends StatelessWidget {
                     Text(
                       '${nextClass.startTime} (${nextClass.instructor})',
                       style: AppTypography.bodySmall.copyWith(
-                        color: AppColors.textSecondaryLight,
+                        color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                         fontSize: 11,
                       ),
                       overflow: TextOverflow.ellipsis,

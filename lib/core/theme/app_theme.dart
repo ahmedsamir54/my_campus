@@ -50,7 +50,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         onPrimary: Colors.white,
-        secondary: AppColors.mintAccent,
+        secondary: AppColors.secondary,
         surface: AppColors.cardDark,
         onSurface: AppColors.textPrimaryDark,
         error: AppColors.danger,

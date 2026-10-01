@@ -81,8 +81,10 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
       ),
     ];
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: CustomAppBar(
         isDashboard: _currentIndex == 0,
         title: _getAppBarTitle(_currentIndex),

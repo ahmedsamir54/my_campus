@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_campus/core/constants/app_assets.dart';
 import 'package:my_campus/core/constants/app_colors.dart';
 import 'package:my_campus/core/constants/app_typography.dart';
 
@@ -16,6 +17,8 @@ class StudentGreetingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -30,6 +33,7 @@ class StudentGreetingHeader extends StatelessWidget {
                     style: AppTypography.heading2.copyWith(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
+                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -38,7 +42,7 @@ class StudentGreetingHeader extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
-                      color: AppColors.mintBadge,
+                      color: isDark ? const Color(0xFF0F392B) : AppColors.mintBadge,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -56,7 +60,7 @@ class StudentGreetingHeader extends StatelessWidget {
                         Text(
                           'Omi',
                           style: AppTypography.badgeText.copyWith(
-                            color: AppColors.primaryDark,
+                            color: isDark ? const Color(0xFF6EE7B7) : AppColors.primaryDark,
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                           ),
@@ -70,7 +74,7 @@ class StudentGreetingHeader extends StatelessWidget {
               Text(
                 'Make your campus life easier with MyCampus.',
                 style: AppTypography.bodyMedium.copyWith(
-                  color: AppColors.textSecondaryLight,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                   fontSize: 13,
                 ),
               ),
@@ -90,10 +94,18 @@ class StudentGreetingHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.primary, width: 2),
-                  color: const Color(0xFFF1F5F9),
+                  color: isDark ? AppColors.cardDark : const Color(0xFFF1F5F9),
                 ),
-                child: const ClipOval(
-                  child: Icon(Icons.person, color: AppColors.primary, size: 30),
+                child: ClipOval(
+                  child: Image.asset(
+                    AppAssets.avatarStudent,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const Icon(
+                      Icons.person,
+                      color: AppColors.primary,
+                      size: 30,
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -105,7 +117,10 @@ class StudentGreetingHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.success,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
+                    border: Border.all(
+                      color: isDark ? AppColors.backgroundDark : Colors.white,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
