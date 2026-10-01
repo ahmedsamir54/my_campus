@@ -9,7 +9,6 @@ import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/profile/presentation/cubit/profile_cubit.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../features/splash/presentation/pages/splash_page.dart';
 import '../../injection_container.dart';
 
 class AppRoutes {
@@ -30,10 +29,6 @@ class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-        return MaterialPageRoute(
-          builder: (_) => const SplashPage(),
-          settings: settings,
-        );
       case onboarding:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

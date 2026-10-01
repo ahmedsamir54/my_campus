@@ -22,6 +22,9 @@ class MyCampusApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: themeMode,
+            onGenerateInitialRoutes: (route) => [
+              AppRoutes.onGenerateRoute(RouteSettings(name: route)),
+            ],
             onGenerateRoute: AppRoutes.onGenerateRoute,
             initialRoute: initialRoute ?? AppRoutes.onboarding,
           );
