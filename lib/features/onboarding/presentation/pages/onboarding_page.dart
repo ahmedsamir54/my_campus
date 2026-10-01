@@ -17,18 +17,35 @@ class OnboardingPage extends StatefulWidget {
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingPageState extends State<OnboardingPage>
+    with SingleTickerProviderStateMixin {
   late final PageController _pageController;
+  late final AnimationController _floatingController;
+  late final Animation<double> _floatingAnimation;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+
+    // Floating breathing animation for 3D illustration
+    _floatingController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat(reverse: true);
+
+    _floatingAnimation = Tween<double>(begin: -5.0, end: 5.0).animate(
+      CurvedAnimation(
+        parent: _floatingController,
+        curve: Curves.easeInOutSine,
+      ),
+    );
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _floatingController.dispose();
     super.dispose();
   }
 
@@ -48,8 +65,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
       _completeAndNavigateToLogin();
     } else {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 380),
+        curve: Curves.easeInOutCubic,
       );
     }
   }
@@ -62,9 +79,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       backgroundColor: isDark ? AppColors.backgroundDark : Colors.white,
       body: SafeArea(
         child: BlocConsumer<OnboardingCubit, OnboardingState>(
-          listener: (context, state) {
-            // State updates handled reactively
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             final items = state.items;
             if (items.isEmpty) {
@@ -84,23 +99,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   child: Row(
                     children: [
                       Container(
-                        width: 38,
-                        height: 38,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.primary.withValues(alpha: 0.25),
-                              blurRadius: 8,
-                              offset: const Offset(0, 3),
+                              color: AppColors.primary.withValues(alpha: 0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
                         child: const Icon(
                           Icons.school_rounded,
                           color: Colors.white,
-                          size: 22,
+                          size: 24,
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -114,7 +129,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               color: isDark
                                   ? AppColors.textPrimaryDark
                                   : AppColors.textPrimaryLight,
-                              fontSize: 16,
+                              fontSize: 16.5,
                               height: 1.1,
                             ),
                           ),
@@ -134,8 +149,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         onPressed: _completeAndNavigateToLogin,
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
+                            horizontal: 14,
+                            vertical: 8,
                           ),
                           minimumSize: Size.zero,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -147,7 +162,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                 ? AppColors.textSecondaryDark
                                 : const Color(0xFF64748B),
                             fontWeight: FontWeight.w600,
-                            fontSize: 13,
+                            fontSize: 13.5,
                           ),
                         ),
                       ),
@@ -169,17 +184,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
 
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
 
-                // Dots Indicator
+                // Animated Dots Indicator
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(items.length, (index) {
                     final bool isSelected = index == state.currentIndex;
                     return AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOutCubic,
                       margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: isSelected ? 22 : 7,
+                      width: isSelected ? 24 : 7,
                       height: 7,
                       decoration: BoxDecoration(
                         color: isSelected
@@ -193,9 +209,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   }),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 22),
 
-                // Primary Action Button (Next or Get Started)
+                // Animated Primary Action Button (Next or Get Started)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: SizedBox(
@@ -212,23 +228,31 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         ),
                       ),
                       onPressed: () => _onNextPressed(state),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            isLast ? 'Get Started' : 'Next',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.2,
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        transitionBuilder: (child, anim) => FadeTransition(
+                          opacity: anim,
+                          child: ScaleTransition(scale: anim, child: child),
+                        ),
+                        child: Row(
+                          key: ValueKey<bool>(isLast),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              isLast ? 'Get Started' : 'Next',
+                              style: const TextStyle(
+                                fontSize: 15.5,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.2,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(
-                            Icons.arrow_forward_rounded,
-                            size: 19,
-                          ),
-                        ],
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.arrow_forward_rounded,
+                              size: 19,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -279,90 +303,58 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         children: [
           const SizedBox(height: 8),
-          // Illustration Box with floating pills
+
+          // Illustration Box with floating breathing animation & clean 1:1 square dimensions
           Expanded(
             flex: 12,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                // Image Canvas
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? const Color(0xFF131D24)
-                        : const Color(0xFFF1F8F4),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
+            child: Center(
+              child: AnimatedBuilder(
+                animation: _floatingAnimation,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: Offset(0, _floatingAnimation.value),
+                    child: child,
+                  );
+                },
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Container(
+                    decoration: BoxDecoration(
                       color: isDark
-                          ? const Color(0xFF1E293B)
-                          : const Color(0xFFE2EFE7),
-                      width: 1.5,
+                          ? const Color(0xFF131D24)
+                          : const Color(0xFFF1F8F4),
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(
+                        color: isDark
+                            ? const Color(0xFF1E293B)
+                            : const Color(0xFFE2EFE7),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primary
+                              .withValues(alpha: isDark ? 0.12 : 0.08),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
                     ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    item.imagePath,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.asset(
+                      item.imagePath,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
                   ),
                 ),
-
-                // Top Pill Tag
-                if (item.topBadgeText.contains('Cloud'))
-                  Positioned(
-                    top: 14,
-                    right: 14,
-                    child: _buildBadge(
-                      icon: Icons.check_circle_rounded,
-                      text: item.topBadgeText,
-                      isDark: isDark,
-                    ),
-                  )
-                else
-                  Positioned(
-                    top: 14,
-                    left: 14,
-                    child: _buildBadge(
-                      icon: item.topBadgeIcon == 'bolt'
-                          ? Icons.bolt_rounded
-                          : Icons.check_rounded,
-                      text: item.topBadgeText,
-                      isDark: isDark,
-                    ),
-                  ),
-
-                // Bottom Pill Tag
-                if (item.bottomBadgeText.contains('Live Sync'))
-                  Positioned(
-                    bottom: 12,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: _buildBadge(
-                        hasGreenDot: true,
-                        text: item.bottomBadgeText,
-                        isDark: isDark,
-                      ),
-                    ),
-                  )
-                else
-                  Positioned(
-                    bottom: 14,
-                    right: 14,
-                    child: _buildBadge(
-                      hasGreenDot: true,
-                      text: item.bottomBadgeText,
-                      isDark: isDark,
-                    ),
-                  ),
-              ],
+              ),
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
 
-          // Titles & Description
+          // Titles & Description with smooth slide/fade animation
           Expanded(
             flex: 8,
             child: Column(
@@ -408,68 +400,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBadge({
-    IconData? icon,
-    bool hasGreenDot = false,
-    required String text,
-    required bool isDark,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
-      decoration: BoxDecoration(
-        color: isDark
-            ? const Color(0xFF0F172A).withValues(alpha: 0.88)
-            : Colors.white.withValues(alpha: 0.95),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-        border: Border.all(
-          color: isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0),
-          width: 0.8,
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[
-            Icon(
-              icon,
-              size: 13,
-              color: AppColors.primary,
-            ),
-            const SizedBox(width: 5),
-          ],
-          if (hasGreenDot) ...[
-            Container(
-              width: 7,
-              height: 7,
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 6),
-          ],
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: isDark
-                  ? AppColors.textPrimaryDark
-                  : const Color(0xFF1E293B),
             ),
           ),
         ],
