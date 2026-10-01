@@ -1,8 +1,6 @@
 # MyCampus — SoftTaqwa University Mobile Portal 🎓
 
-[![Download APK](https://img.shields.io/badge/Download-Release%20APK%20(56.5MB)-00A651?logo=android&logoColor=white&style=for-the-badge)](https://github.com/ahmedsamir54/my_campus/releases/latest/download/app-release.apk)
 [![Figma Design](https://img.shields.io/badge/Figma-Design%20System-F24E1E?logo=figma&logoColor=white&style=for-the-badge)](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
-
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20BLoC%20%2F%20Cubit-00A651?logo=blueprint&logoColor=white)](ARCHITECTURE.md)
@@ -16,9 +14,9 @@
 
 ## ⚡ Quick Links & Evaluator Access
 
-| 📦 **Download APK** | 🎨 **Figma Design Board** | 📖 **Architecture Docs** |
-| :--- | :--- | :--- |
-| [**Download Release APK (.apk)**](https://github.com/ahmedsamir54/my_campus/releases/latest/download/app-release.apk) <br/> *(Direct Android install • 56.5 MB)* <br/> [View All Releases](https://github.com/ahmedsamir54/my_campus/releases) | [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1) <br/> *(Component tokens & mockups)* | [**Read Technical Blueprint**](ARCHITECTURE.md) <br/> *(Clean Architecture, BLoC specs)* |
+| 🎨 **Figma Design Board** | 📖 **Architecture Docs** |
+| :--- | :--- |
+| [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1) <br/> *(Component tokens & UI mockups)* | [**Read Technical Blueprint**](ARCHITECTURE.md) <br/> *(Clean Architecture & BLoC state specs)* |
 
 ### 🔑 Demo Student Credentials (Instant Evaluation)
 
@@ -42,18 +40,6 @@ The UI reflects the SoftTaqwa University visual identity:
 - **Mint Accents & Badges:** `#34D399` & `#D1FAE5`
 - **Dark Mode Canvas:** `#0B0F17` (Deep Obsidian) and `#131D28` / `#101B27` (Card Surface)
 - **Typography:** Modern Google Fonts [Inter](https://fonts.google.com/specimen/Inter) scale
-
----
-
-## 📱 App Showcase
-
-| Splash Screen | Portal SSO Login | Dashboard (Light Mode) |
-| :---: | :---: | :---: |
-| <img src="docs/screenshots/01_splash_screen.png" width="260" alt="Splash Screen" /> | <img src="docs/screenshots/02_portal_login.png" width="260" alt="Portal Login" /> | <img src="docs/screenshots/03_dashboard_light.png" width="260" alt="Dashboard Light Mode" /> |
-
-| Dashboard (Dark Mode) | Class Routine & Schedule | Attendance Safe-Zone Analytics |
-| :---: | :---: | :---: |
-| <img src="docs/screenshots/04_dashboard_dark.png" width="260" alt="Dashboard Dark Mode" /> | <img src="docs/screenshots/05_routine_screen.png" width="260" alt="Routine Screen" /> | <img src="docs/screenshots/06_attendance_screen.png" width="260" alt="Attendance Screen" /> |
 
 ---
 
