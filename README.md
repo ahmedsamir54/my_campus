@@ -1,6 +1,8 @@
 # MyCampus — SoftTaqwa University Mobile Portal 🎓
 
+[![Download APK](https://img.shields.io/badge/Download%20APK-v1.0%20arm64%20(24.6%20MB)-00A651?logo=android&logoColor=white&style=for-the-badge)](https://github.com/ahmedsamir54/my_campus/raw/main/releases/MyCampus-v1.0-arm64.apk)
 [![Figma Design](https://img.shields.io/badge/Figma-Design%20System-F24E1E?logo=figma&logoColor=white&style=for-the-badge)](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20BLoC%20%2F%20Cubit-00A651?logo=blueprint&logoColor=white)](ARCHITECTURE.md)
@@ -14,9 +16,9 @@
 
 ## ⚡ Quick Links & Evaluator Access
 
-| 🎨 **Figma Design Board** | 📖 **Architecture Docs** |
-| :--- | :--- |
-| [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1) <br/> *(Component tokens & UI mockups)* | [**Read Technical Blueprint**](ARCHITECTURE.md) <br/> *(Clean Architecture & BLoC state specs)* |
+| 📦 **Download APK** | 🎨 **Figma Design Board** | 📖 **Architecture Docs** |
+| :--- | :--- | :--- |
+| [**Download MyCampus-v1.0-arm64.apk**](https://github.com/ahmedsamir54/my_campus/raw/main/releases/MyCampus-v1.0-arm64.apk) <br/> *(Direct Android install • 24.6 MB)* | [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1) <br/> *(Component tokens & UI mockups)* | [**Read Technical Blueprint**](ARCHITECTURE.md) <br/> *(Clean Architecture & BLoC state specs)* |
 
 ### 🔑 Demo Student Credentials (Instant Evaluation)
 
