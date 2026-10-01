@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_campus/core/constants/app_assets.dart';
 import 'package:my_campus/core/constants/app_colors.dart';
 import 'package:my_campus/core/constants/app_typography.dart';
 
@@ -94,17 +93,13 @@ class StudentGreetingHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.primary, width: 2),
-                  color: isDark ? AppColors.cardDark : const Color(0xFFF1F5F9),
+                  color: isDark ? const Color(0xFF0F2C20) : AppColors.primaryLight,
                 ),
-                child: ClipOval(
-                  child: Image.asset(
-                    AppAssets.avatarStudent,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const Icon(
-                      Icons.person,
-                      color: AppColors.primary,
-                      size: 30,
-                    ),
+                child: const ClipOval(
+                  child: Icon(
+                    Icons.person,
+                    color: AppColors.primary,
+                    size: 30,
                   ),
                 ),
               ),

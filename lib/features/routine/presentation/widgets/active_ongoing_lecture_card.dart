@@ -15,14 +15,21 @@ class ActiveOngoingLectureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF101B27) : Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFD1FAE5), width: 1.5),
+        border: Border.all(
+          color: isDark ? const Color(0xFF1E4636) : const Color(0xFFD1FAE5),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.05),
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.25)
+                : AppColors.primary.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -53,7 +60,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFD1FAE5),
+                              color: isDark ? const Color(0xFF0F392B) : const Color(0xFFD1FAE5),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
@@ -71,7 +78,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                                 Text(
                                   lecture.statusTag.toUpperCase(),
                                   style: AppTypography.badgeText.copyWith(
-                                    color: AppColors.primaryDark,
+                                    color: isDark ? const Color(0xFF34D399) : AppColors.primaryDark,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -84,7 +91,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                             style: AppTypography.badgeText.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.textPrimaryLight,
+                              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                             ),
                           ),
                         ],
@@ -98,14 +105,14 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                           Text(
                             'Class Elapsed',
                             style: AppTypography.bodySmall.copyWith(
-                              color: AppColors.textSecondaryLight,
+                              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                               fontSize: 11,
                             ),
                           ),
                           Text(
                             '${lecture.elapsedMinutes} min of ${lecture.totalMinutes} min (${(lecture.elapsedPercentage * 100).toInt()}%)',
                             style: AppTypography.badgeText.copyWith(
-                              color: AppColors.primaryDark,
+                              color: isDark ? const Color(0xFF34D399) : AppColors.primaryDark,
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
                             ),
@@ -119,7 +126,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                         child: LinearProgressIndicator(
                           value: lecture.elapsedPercentage,
                           minHeight: 5,
-                          backgroundColor: const Color(0xFFE2E8F0),
+                          backgroundColor: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFE2E8F0),
                           valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                         ),
                       ),
@@ -131,7 +138,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                         style: AppTypography.heading3.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w800,
-                          color: AppColors.textPrimaryLight,
+                          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -139,12 +146,16 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                       // Instructor
                       Row(
                         children: [
-                          const Icon(Icons.person_outline_rounded, size: 15, color: AppColors.textSecondaryLight),
+                          Icon(
+                            Icons.person_outline_rounded,
+                            size: 15,
+                            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                          ),
                           const SizedBox(width: 5),
                           Text(
                             lecture.instructor,
                             style: AppTypography.bodyMedium.copyWith(
-                              color: AppColors.textPrimaryLight,
+                              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),
@@ -156,13 +167,17 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                       // Hall / Location
                       Row(
                         children: [
-                          const Icon(Icons.location_on_outlined, size: 15, color: AppColors.textSecondaryLight),
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 15,
+                            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                          ),
                           const SizedBox(width: 5),
                           Expanded(
                             child: Text(
                               lecture.hall,
                               style: AppTypography.bodySmall.copyWith(
-                                color: AppColors.textSecondaryLight,
+                                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                                 fontSize: 11,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -186,18 +201,22 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFE8F5E9),
+                                    color: isDark ? const Color(0xFF0F392B) : const Color(0xFFE8F5E9),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(Icons.near_me_outlined, size: 13, color: AppColors.primary),
+                                      Icon(
+                                        Icons.near_me_outlined,
+                                        size: 13,
+                                        color: isDark ? const Color(0xFF34D399) : AppColors.primary,
+                                      ),
                                       const SizedBox(width: 4),
                                       Text(
                                         'Locate Hall (${lecture.locateWalkMinutes})',
                                         style: AppTypography.badgeText.copyWith(
-                                          color: AppColors.primaryDark,
+                                          color: isDark ? const Color(0xFF34D399) : AppColors.primaryDark,
                                           fontSize: 11,
                                           fontWeight: FontWeight.w700,
                                         ),
@@ -211,7 +230,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF1F5F9),
+                                color: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFF1F5F9),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -222,7 +241,7 @@ class ActiveOngoingLectureCard extends StatelessWidget {
                                   Text(
                                     'Attendance Marked (${lecture.attendanceMarked})',
                                     style: AppTypography.badgeText.copyWith(
-                                      color: AppColors.textPrimaryLight,
+                                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
                                     ),

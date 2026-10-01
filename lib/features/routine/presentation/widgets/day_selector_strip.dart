@@ -17,6 +17,8 @@ class DaySelectorStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SizedBox(
       height: 78,
       child: Row(
@@ -37,24 +39,26 @@ class DaySelectorStrip extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.primaryDark : Colors.white,
+                      color: isSelected
+                          ? (isDark ? AppColors.primary : AppColors.primaryDark)
+                          : (isDark ? const Color(0xFF131D28) : Colors.white),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: isSelected
-                            ? AppColors.primaryDark
-                            : AppColors.borderSubtle,
+                            ? (isDark ? AppColors.secondary : AppColors.primaryDark)
+                            : (isDark ? const Color(0xFF1E2D3D) : AppColors.borderSubtle),
                         width: 1.2,
                       ),
                       boxShadow: [
                         if (isSelected)
                           BoxShadow(
-                            color: AppColors.primaryDark.withValues(alpha: 0.25),
+                            color: (isDark ? AppColors.primary : AppColors.primaryDark).withValues(alpha: isDark ? 0.35 : 0.25),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           )
                         else
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.02),
+                            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.02),
                             blurRadius: 4,
                             offset: const Offset(0, 2),
                           ),
@@ -70,8 +74,8 @@ class DaySelectorStrip extends StatelessWidget {
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
                             color: isSelected
-                                ? const Color(0xFF86EFAC)
-                                : AppColors.textSecondaryLight,
+                                ? (isDark ? Colors.white.withValues(alpha: 0.9) : const Color(0xFF86EFAC))
+                                : (isDark ? const Color(0xFF94A3B8) : AppColors.textSecondaryLight),
                             letterSpacing: 0.3,
                           ),
                         ),
@@ -82,7 +86,9 @@ class DaySelectorStrip extends StatelessWidget {
                           style: AppTypography.heading3.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: isSelected ? Colors.white : AppColors.textPrimaryLight,
+                            color: isSelected
+                                ? Colors.white
+                                : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -92,7 +98,9 @@ class DaySelectorStrip extends StatelessWidget {
                           height: 4,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: isSelected ? const Color(0xFF4ADE80) : Colors.transparent,
+                            color: isSelected
+                                ? (isDark ? Colors.white : const Color(0xFF4ADE80))
+                                : Colors.transparent,
                           ),
                         ),
                       ],

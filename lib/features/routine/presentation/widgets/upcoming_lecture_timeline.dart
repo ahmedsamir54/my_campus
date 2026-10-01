@@ -19,17 +19,25 @@ class UpcomingLectureTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     if (lectures.isEmpty) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 32),
         alignment: Alignment.center,
         child: Column(
           children: [
-            const Icon(Icons.event_busy_rounded, size: 36, color: AppColors.textMutedLight),
+            Icon(
+              Icons.event_busy_rounded,
+              size: 36,
+              color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+            ),
             const SizedBox(height: 8),
             Text(
               'No more lectures scheduled today',
-              style: AppTypography.bodyMedium.copyWith(color: AppColors.textSecondaryLight),
+              style: AppTypography.bodyMedium.copyWith(
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
             ),
           ],
         ),
@@ -47,21 +55,24 @@ class UpcomingLectureTimeline extends StatelessWidget {
   }
 
   Widget _buildUpcomingLectureCard(BuildContext context, LectureEntity lecture) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final isPresentation = lecture.statusTag.contains('Presentation');
 
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF131D28) : Colors.white,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: isPresentation ? const Color(0xFFFFEDD5) : AppColors.borderSubtle,
+          color: isPresentation
+              ? (isDark ? const Color(0xFF7C2D12) : const Color(0xFFFFEDD5))
+              : (isDark ? const Color(0xFF1E2D3D) : AppColors.borderSubtle),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.02),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
@@ -77,23 +88,35 @@ class UpcomingLectureTimeline extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: isPresentation ? const Color(0xFFFFF7ED) : const Color(0xFFEFF6FF),
+                  color: isPresentation
+                      ? (isDark ? const Color(0xFF3B1E08) : const Color(0xFFFFF7ED))
+                      : (isDark ? const Color(0xFF132238) : const Color(0xFFEFF6FF)),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (isPresentation)
-                      const Icon(Icons.warning_amber_rounded, size: 12, color: Color(0xFFEA580C))
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        size: 12,
+                        color: isDark ? const Color(0xFFFB923C) : const Color(0xFFEA580C),
+                      )
                     else
-                      const Icon(Icons.access_time_rounded, size: 12, color: Color(0xFF2563EB)),
+                      Icon(
+                        Icons.access_time_rounded,
+                        size: 12,
+                        color: isDark ? const Color(0xFF60A5FA) : const Color(0xFF2563EB),
+                      ),
                     const SizedBox(width: 4),
                     Text(
                       lecture.statusTag,
                       style: AppTypography.badgeText.copyWith(
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
-                        color: isPresentation ? const Color(0xFFEA580C) : const Color(0xFF2563EB),
+                        color: isPresentation
+                            ? (isDark ? const Color(0xFFFB923C) : const Color(0xFFEA580C))
+                            : (isDark ? const Color(0xFF60A5FA) : const Color(0xFF2563EB)),
                       ),
                     ),
                   ],
@@ -104,7 +127,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                 style: AppTypography.badgeText.copyWith(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimaryLight,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                 ),
               ),
             ],
@@ -117,6 +140,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
             style: AppTypography.heading3.copyWith(
               fontSize: 15,
               fontWeight: FontWeight.w700,
+              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
             ),
           ),
           const SizedBox(height: 4),
@@ -124,12 +148,16 @@ class UpcomingLectureTimeline extends StatelessWidget {
           // Instructor
           Row(
             children: [
-              const Icon(Icons.person_outline_rounded, size: 14, color: AppColors.textSecondaryLight),
+              Icon(
+                Icons.person_outline_rounded,
+                size: 14,
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
               const SizedBox(width: 5),
               Text(
                 lecture.instructor,
                 style: AppTypography.bodySmall.copyWith(
-                  color: AppColors.textPrimaryLight,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   fontSize: 12,
                 ),
               ),
@@ -140,12 +168,16 @@ class UpcomingLectureTimeline extends StatelessWidget {
           // Hall
           Row(
             children: [
-              const Icon(Icons.room_outlined, size: 14, color: AppColors.textSecondaryLight),
+              Icon(
+                Icons.room_outlined,
+                size: 14,
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
               const SizedBox(width: 5),
               Text(
                 lecture.hall,
                 style: AppTypography.bodySmall.copyWith(
-                  color: AppColors.textSecondaryLight,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                   fontSize: 11,
                 ),
               ),
@@ -158,9 +190,11 @@ class UpcomingLectureTimeline extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: const Color(0xFFF8FAFC),
+                color: isDark ? const Color(0xFF101B27) : const Color(0xFFF8FAFC),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFE2E8F0),
+                ),
               ),
               child: Row(
                 children: [
@@ -168,10 +202,14 @@ class UpcomingLectureTimeline extends StatelessWidget {
                     width: 32,
                     height: 32,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFEFF6FF),
+                      color: isDark ? const Color(0xFF172554) : const Color(0xFFEFF6FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.description_outlined, size: 18, color: Color(0xFF2563EB)),
+                    child: Icon(
+                      Icons.description_outlined,
+                      size: 18,
+                      color: isDark ? const Color(0xFF60A5FA) : const Color(0xFF2563EB),
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -182,7 +220,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                           lecture.attachmentName!,
                           style: AppTypography.bodySmall.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: AppColors.textPrimaryLight,
+                            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                             fontSize: 11,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -192,7 +230,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                             lecture.attachmentSize!,
                             style: AppTypography.bodySmall.copyWith(
                               fontSize: 10,
-                              color: AppColors.textSecondaryLight,
+                              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                             ),
                           ),
                       ],
@@ -203,7 +241,11 @@ class UpcomingLectureTimeline extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       padding: const EdgeInsets.all(6),
-                      child: const Icon(Icons.download_rounded, size: 18, color: AppColors.primary),
+                      child: Icon(
+                        Icons.download_rounded,
+                        size: 18,
+                        color: isDark ? const Color(0xFF34D399) : AppColors.primary,
+                      ),
                     ),
                   ),
                 ],
@@ -220,14 +262,14 @@ class UpcomingLectureTimeline extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF1F5F9),
+                    color: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     lecture.groupSlot!,
                     style: AppTypography.badgeText.copyWith(
                       fontSize: 11,
-                      color: AppColors.textPrimaryLight,
+                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -237,7 +279,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                   child: Text(
                     lecture.rubricLabel ?? 'View Rubric',
                     style: AppTypography.badgeText.copyWith(
-                      color: AppColors.primary,
+                      color: isDark ? const Color(0xFF34D399) : AppColors.primary,
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       decoration: TextDecoration.underline,
@@ -253,13 +295,24 @@ class UpcomingLectureTimeline extends StatelessWidget {
   }
 
   Widget _buildReservationCard(BuildContext context, LectureEntity lecture) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0FDF4),
+        color: isDark ? const Color(0xFF101B27) : const Color(0xFFF0FDF4),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFBBF7D0)),
+        border: Border.all(
+          color: isDark ? const Color(0xFF1E4636) : const Color(0xFFBBF7D0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.02),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -267,10 +320,14 @@ class UpcomingLectureTimeline extends StatelessWidget {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: isDark ? const Color(0xFF0F392B) : AppColors.primary,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.bookmark_added_rounded, color: Colors.white, size: 20),
+            child: Icon(
+              Icons.bookmark_added_rounded,
+              color: isDark ? const Color(0xFF34D399) : Colors.white,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -282,7 +339,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                   style: AppTypography.heading3.copyWith(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimaryLight,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -290,7 +347,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
                   '${lecture.hall} • ${lecture.startTime}',
                   style: AppTypography.bodySmall.copyWith(
                     fontSize: 11,
-                    color: AppColors.textSecondaryLight,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
                   ),
                 ),
               ],
@@ -299,10 +356,13 @@ class UpcomingLectureTimeline extends StatelessWidget {
           ElevatedButton(
             onPressed: () => onCheckInReservation?.call(lecture),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: AppColors.primary,
+              backgroundColor: isDark ? const Color(0xFF131D28) : Colors.white,
+              foregroundColor: isDark ? const Color(0xFF34D399) : AppColors.primary,
               elevation: 0,
-              side: const BorderSide(color: AppColors.primary, width: 1.2),
+              side: BorderSide(
+                color: isDark ? const Color(0xFF34D399) : AppColors.primary,
+                width: 1.2,
+              ),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               minimumSize: const Size(0, 34),
@@ -312,7 +372,7 @@ class UpcomingLectureTimeline extends StatelessWidget {
               style: AppTypography.badgeText.copyWith(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
-                color: AppColors.primary,
+                color: isDark ? const Color(0xFF34D399) : AppColors.primary,
               ),
             ),
           ),

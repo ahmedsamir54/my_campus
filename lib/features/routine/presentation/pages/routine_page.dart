@@ -13,8 +13,10 @@ class RoutinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: SafeArea(
         child: BlocBuilder<RoutineCubit, RoutineState>(
           builder: (context, state) {
@@ -31,9 +33,19 @@ class RoutinePage extends StatelessWidget {
                   children: [
                     const Icon(Icons.error_outline_rounded, size: 48, color: AppColors.danger),
                     const SizedBox(height: 12),
-                    Text('Failed to load routine', style: AppTypography.heading3),
+                    Text(
+                      'Failed to load routine',
+                      style: AppTypography.heading3.copyWith(
+                        color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text(state.message, style: AppTypography.bodyMedium),
+                    Text(
+                      state.message,
+                      style: AppTypography.bodyMedium.copyWith(
+                        color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () => context.read<RoutineCubit>().loadWeeklyRoutine(),
@@ -66,9 +78,11 @@ class RoutinePage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF1F5F9),
+                              color: isDark ? const Color(0xFF131D28) : const Color(0xFFF1F5F9),
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: AppColors.borderSubtle),
+                              border: Border.all(
+                                color: isDark ? const Color(0xFF1E2D3D) : AppColors.borderSubtle,
+                              ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -77,12 +91,16 @@ class RoutinePage extends StatelessWidget {
                                   '${routine.semester} • ${routine.week}',
                                   style: AppTypography.badgeText.copyWith(
                                     fontSize: 12,
-                                    color: AppColors.textPrimaryLight,
+                                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(width: 4),
-                                const Icon(Icons.keyboard_arrow_down_rounded, size: 18, color: AppColors.textSecondaryLight),
+                                Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  size: 18,
+                                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                                ),
                               ],
                             ),
                           ),
@@ -90,11 +108,17 @@ class RoutinePage extends StatelessWidget {
                             width: 36,
                             height: 36,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: isDark ? const Color(0xFF131D28) : Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.borderSubtle),
+                              border: Border.all(
+                                color: isDark ? const Color(0xFF1E2D3D) : AppColors.borderSubtle,
+                              ),
                             ),
-                            child: const Icon(Icons.calendar_today_outlined, size: 18, color: AppColors.textPrimaryLight),
+                            child: Icon(
+                              Icons.calendar_today_outlined,
+                              size: 18,
+                              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                            ),
                           ),
                         ],
                       ),
@@ -128,7 +152,7 @@ class RoutinePage extends StatelessWidget {
                               Text(
                                 '${selectedDay.lecturesCount} Lectures Scheduled Today • ${selectedDay.totalHours}',
                                 style: AppTypography.bodySmall.copyWith(
-                                  color: AppColors.textPrimaryLight,
+                                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -138,7 +162,7 @@ class RoutinePage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFE2E8F0),
+                              color: isDark ? const Color(0xFF1E2D3D) : const Color(0xFFE2E8F0),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -146,7 +170,7 @@ class RoutinePage extends StatelessWidget {
                               style: AppTypography.badgeText.copyWith(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.textSecondaryLight,
+                                color: isDark ? const Color(0xFF94A3B8) : AppColors.textSecondaryLight,
                               ),
                             ),
                           ),
@@ -210,9 +234,10 @@ class RoutinePage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryDark,
+                            backgroundColor: isDark ? const Color(0xFF0F392B) : AppColors.primaryDark,
                             foregroundColor: Colors.white,
                             elevation: 0,
+                            side: isDark ? const BorderSide(color: Color(0xFF1E4636), width: 1.2) : null,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           ),
                           child: Row(
@@ -255,9 +280,11 @@ class RoutinePage extends StatelessWidget {
   }
 
   void _showLocateHallModal(BuildContext context, dynamic lecture) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? const Color(0xFF131D28) : Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -272,17 +299,34 @@ class RoutinePage extends StatelessWidget {
               children: [
                 Text(
                   'Hall Wayfinding Guide',
-                  style: AppTypography.heading3.copyWith(fontSize: 18),
+                  style: AppTypography.heading3.copyWith(
+                    fontSize: 18,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                  ),
                 ),
-                IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(ctx)),
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
+                  onPressed: () => Navigator.pop(ctx),
+                ),
               ],
             ),
             const SizedBox(height: 12),
-            Text('${lecture.title} • ${lecture.hall}', style: AppTypography.bodyLarge),
+            Text(
+              '${lecture.title} • ${lecture.hall}',
+              style: AppTypography.bodyLarge.copyWith(
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Route: Enter North Wing entrance -> Take elevator or stairs to 2nd Floor -> Hall B-12 is right across the faculty lounge.',
-              style: AppTypography.bodyMedium,
+              style: AppTypography.bodyMedium.copyWith(
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
             ),
             const SizedBox(height: 18),
             SizedBox(
@@ -306,9 +350,11 @@ class RoutinePage extends StatelessWidget {
   }
 
   void _showRubricModal(BuildContext context, dynamic lecture) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? const Color(0xFF131D28) : Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -323,15 +369,35 @@ class RoutinePage extends StatelessWidget {
               children: [
                 Text(
                   'Presentation Rubric',
-                  style: AppTypography.heading3.copyWith(fontSize: 18),
+                  style: AppTypography.heading3.copyWith(
+                    fontSize: 18,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                  ),
                 ),
-                IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(ctx)),
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
+                  onPressed: () => Navigator.pop(ctx),
+                ),
               ],
             ),
             const SizedBox(height: 12),
-            Text('${lecture.title} • ${lecture.groupSlot}', style: AppTypography.bodyLarge),
+            Text(
+              '${lecture.title} • ${lecture.groupSlot}',
+              style: AppTypography.bodyLarge.copyWith(
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 10),
-            Text('• Architecture & System Design: 40% (20 pts)\n• Live Demonstration: 30% (15 pts)\n• Q&A & Code Quality: 30% (15 pts)', style: AppTypography.bodyMedium),
+            Text(
+              '• Architecture & System Design: 40% (20 pts)\n• Live Demonstration: 30% (15 pts)\n• Q&A & Code Quality: 30% (15 pts)',
+              style: AppTypography.bodyMedium.copyWith(
+                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              ),
+            ),
             const SizedBox(height: 20),
           ],
         ),
