@@ -1,6 +1,6 @@
 {
-    "name": "my_campus",
-    "short_name": "my_campus",
+    "name": "MyCampus",
+    "short_name": "MyCampus",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
