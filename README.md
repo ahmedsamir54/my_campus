@@ -1,9 +1,11 @@
 # MyCampus — SoftTaqwa University Mobile Portal 🎓
 
+[![Download APK](https://img.shields.io/badge/Download-Release%20APK%20(56.5MB)-00A651?logo=android&logoColor=white&style=for-the-badge)](https://github.com/ahmedsamir54/my_campus/releases/latest/download/app-release.apk)
+[![Figma Design](https://img.shields.io/badge/Figma-Design%20System-F24E1E?logo=figma&logoColor=white&style=for-the-badge)](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20BLoC%20%2F%20Cubit-00A651?logo=blueprint&logoColor=white)](ARCHITECTURE.md)
-[![Design](https://img.shields.io/badge/Figma-Design%20Board-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/Untitled?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
 [![Tests](https://img.shields.io/badge/Tests-26%2F26%20Passed-10B981?logo=checkmarx&logoColor=white)](test/)
 [![Linter](https://img.shields.io/badge/Linter-0%20Issues-brightgreen?logo=dart)](analysis_options.yaml)
 [![Theme](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Mode-131D28)](lib/core/theme/)
@@ -12,10 +14,27 @@
 
 ---
 
+## ⚡ Quick Links & Evaluator Access
+
+| 📦 **Download APK** | 🎨 **Figma Design Board** | 📖 **Architecture Docs** |
+| :--- | :--- | :--- |
+| [**Download Release APK (.apk)**](https://github.com/ahmedsamir54/my_campus/releases/latest/download/app-release.apk) <br/> *(Direct Android install • 56.5 MB)* <br/> [View All Releases](https://github.com/ahmedsamir54/my_campus/releases) | [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1) <br/> *(Component tokens & mockups)* | [**Read Technical Blueprint**](ARCHITECTURE.md) <br/> *(Clean Architecture, BLoC specs)* |
+
+### 🔑 Demo Student Credentials (Instant Evaluation)
+
+The app comes with pre-configured mock data for evaluators to test all features immediately without account registration:
+
+> **Portal Login Credentials:**
+> - **Student ID / Email:** `CU-2023-8841` *(pre-filled by default)*
+> - **Password:** `password123` *(pre-filled by default)*
+> - **One-Tap Instant Entry:** Tap **"Sign In to Campus"** or tap **"Face ID"** / **"Touch ID"** for instant simulated biometric login.
+
+---
+
 ## 🎨 Design System & Board
 
 - **Official Figma Design Workspace:**  
-  👉 [**View Figma Design Board**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/Untitled?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
+  👉 [**MyCampus — SoftTaqwa Design System**](https://www.figma.com/board/8b2pyF8bwhxUE5ccD3QYiJ/MyCampus-%E2%80%94-SoftTaqwa-Design-System?node-id=0-1&t=A6f5gN4Dui6qBHRz-1)
 
 The UI reflects the SoftTaqwa University visual identity:
 - **Brand Primary:** `#00A651` (SoftTaqwa Emerald)
@@ -152,7 +171,7 @@ For complete technical specifications, see [ARCHITECTURE.md](ARCHITECTURE.md).
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/ahmedsamir54/my_campus.git
-   cd my_campus/my_campus
+   cd my_campus
    ```
 
 2. **Install project dependencies:**
@@ -199,6 +218,7 @@ Key test suites include:
 
 ## 📝 Recent Development Milestones
 
+- **Production APK Release Compilation:** Compiled standalone release APK (`56.5 MB`) for evaluator testing and direct device side-loading.
 - **Native App Launcher Icon & Splash Unification:** Embedded the custom SoftTaqwa University green graduation badge as the native app icon and eliminated secondary splash flicker.
 - **Onboarding Single-Display Lifecycle:** Enforced `kHasCompletedOnboarding` flag in local persistence to ensure first-time onboarding displays only once.
 - **Complete Dashboard Dark Mode:** Full adaptation of the campus hero, quick action cards, next class widget, and typography to obsidian and deep emerald surfaces.
